@@ -1,8 +1,9 @@
 class Wysihtml5Input < SimpleForm::Inputs::TextInput
   def input(wrapper_options)
-    idf = "#{lookup_model_names.join("_")}_#{reflection_or_attribute_name}"
+
+    merged_wysihtml5_options = BootstrapWysihtml5Rails.options.deep_merge(input_options[:wysihtml5_options] || {})
     script = template.content_tag(:script, type: 'text/javascript') do
-      "$('textarea[id=#{idf}]').wysihtml5();".html_safe
+      "$('textarea[id=#{input_class}]').wysihtml5(#{merged_wysihtml5_options.to_json});".html_safe
     end
 
     super + script

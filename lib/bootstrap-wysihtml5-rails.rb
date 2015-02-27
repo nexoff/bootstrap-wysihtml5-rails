@@ -11,4 +11,11 @@ module BootstrapWysihtml5Rails
       require "bootstrap-wysihtml5-rails/engine"
     end
   end
+
+  mattr_accessor :options
+  @@options = {}
+
+  def self.configure
+    yield self
+  end
 end
